@@ -56,7 +56,7 @@ A side effect is anything a function does outside of calculating the return valu
 One example of a side effect is **changing a global variable**, which would happen in this case:
 
 ```js
-var age = 1;
+let age = 1;
 
 function howOldNextBirthday(a){
   age = a + 1;
@@ -88,12 +88,12 @@ Imagine we've been asked to write some code that takes an array of words and ret
 One way to write this would involve creating an empty array `excitedWords`, and then mutate (change) it:
 
 ```js
-var wordList = ['chocolate', 'crisps', 'icecream'];
+const wordList = ['chocolate', 'crisps', 'icecream'];
 
-var excitedWords=[];
+const excitedWords = [];
 
-for (var i=0; i<wordList.length; i++){
-  var word = wordList[i].toUpperCase() + '!!!'
+for (let i=0; i<wordList.length; i++){
+  const word = wordList[i].toUpperCase() + '!!!';
   excitedWords.push(word);
 };
 ```
@@ -105,12 +105,12 @@ To make this code testable, we can wrap it into a function `excite()` that takes
 ```js
 function excite(words) {
   return words.map(function(word) {
-    return word.toUpperCase()+'!!!';
+    return word.toUpperCase() + '!!!';
   });
 }
 
-var wordList = ['chocolate', 'crisps', 'icecream'];
-var excitedWords = excite(wordList);
+const wordList = ['chocolate', 'crisps', 'icecream'];
+const excitedWords = excite(wordList);
 ```
 
 ### Example 2 - but what if I need side effects?
@@ -122,10 +122,10 @@ In this example, we have a function that toggles the opacity of an image (when t
 In the first version below, the function takes no arguments, alters the DOM after checking the global variable `changeTransition`, then changes the global variable `changeTransition`.
 
 ```js
-var changeTransition = true;
+let changeTransition = true;
 
 function visionChange() {
-  var visionimage = document.getElementById("visionimage");
+  const visionimage = document.getElementById("visionimage");
 
   if (changeTransition === true) {
     visionimage.style.opacity = 0;
@@ -158,7 +158,7 @@ function visionChange(changeTransition) {
 
 function updateDom(changeTransition) {
   return function() {
-    var visionimage = document.getElementById("visionimage");
+    const visionimage = document.getElementById("visionimage");
 
     if (changeTransition) {
       visionimage.style.opacity = 0;
@@ -168,7 +168,7 @@ function updateDom(changeTransition) {
   };
 }
 
-var impureUpdateDom = updateDom(visionChange(changeTransition));
+const impureUpdateDom = updateDom(visionChange(changeTransition));
 
 // When we're ready...
 impureUpdateDom();

@@ -32,7 +32,7 @@ Functions take in some number of arguments and then return a value. A _pure func
 For example, if you call...
 
 ```js
-function stringLength(str) {
+const stringLength = (str) => {
   return str.length;
 };
 ```
@@ -42,7 +42,7 @@ function stringLength(str) {
 However, if you call...
 
 ```js
-function randomAdd(x) {
+const randomAdd = (x) => {
   return Math.random() + x;
 };
 ```
@@ -58,7 +58,7 @@ One example of a side effect is **changing a global variable**, which would happ
 ```js
 let age = 1;
 
-function howOldNextBirthday(a){
+const howOldNextBirthday = (a) => {
   age = a + 1;
   return age;
 }
@@ -103,8 +103,8 @@ However, this code is not divided into functions, and relies on global variables
 To make this code testable, we can wrap it into a function `excite()` that takes an array as an argument and returns the information we want. This means we can run tests with any array, and that we can create our `excitedWords` array in the form we want without ever having to mutate it.
 
 ```js
-function excite(words) {
-  return words.map(function(word) {
+const excite = (words) => {
+  return words.map((word) => {
     return word.toUpperCase() + '!!!';
   });
 }
@@ -124,7 +124,7 @@ In the first version below, the function takes no arguments, alters the DOM afte
 ```js
 let changeTransition = true;
 
-function visionChange() {
+const visionChange = () => {
   const visionimage = document.getElementById("visionimage");
 
   if (changeTransition === true) {
@@ -148,7 +148,7 @@ Next we rewrite the function as two separate functions, both of which will retur
 Can you see what each functions return? How might you test the functions?
 
 ```js
-function visionChange(changeTransition) {
+const visionChange = (changeTransition) => {
   if (changeTransition) {
     return false;
   } else {
@@ -156,8 +156,8 @@ function visionChange(changeTransition) {
   }
 }
 
-function updateDom(changeTransition) {
-  return function() {
+const updateDom = (changeTransition) => {
+  return () => {
     const visionimage = document.getElementById("visionimage");
 
     if (changeTransition) {
@@ -181,11 +181,11 @@ impureUpdateDom();
 Here's what our tests might look like:
 
 ```js
-test("visionChange correctly switches boolean", function() {
+test("visionChange correctly switches boolean", () => {
   expect(visionChange(true)).toBeFalsy();
 });
 
-test("updateDom returns correct type", function() {
+test("updateDom returns correct type", () => {
   expect(typeof updateDom(true)).toBe('function');
 });
 ```

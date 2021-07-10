@@ -192,7 +192,7 @@ test("updateDom returns correct type", () => {
 
 We now have two easily testable functions, which we can chain together to get the same functionality we had before.
 
-Before you start the exercises, please look at this [example](https://github.com/foundersandcoders/master-reference/blob/master/coursebook/fragments/object-pass-by-reference.js) to understand how to copy an object.
+Before you start the exercises, please look at this [example](./object-pass-by-reference.js) to understand how to copy an object.
 
 ## Exercises!
 

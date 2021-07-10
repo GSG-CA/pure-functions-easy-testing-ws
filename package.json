@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/Jwhiles/pure-functions-easy-testing#readme",
   "devDependencies": {
-    "jest": "^25.1.0"
+    "jest": "^27.0.6"
   }
 }

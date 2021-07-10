@@ -32,7 +32,7 @@ Functions take in some number of arguments and then return a value. A _pure func
 For example, if you call...
 
 ```js
-function stringLength(str) {
+const stringLength = (str) => {
   return str.length;
 };
 ```
@@ -42,7 +42,7 @@ function stringLength(str) {
 However, if you call...
 
 ```js
-function randomAdd(x) {
+const randomAdd = (x) => {
   return Math.random() + x;
 };
 ```
@@ -56,9 +56,9 @@ A side effect is anything a function does outside of calculating the return valu
 One example of a side effect is **changing a global variable**, which would happen in this case:
 
 ```js
-var age = 1;
+let age = 1;
 
-function howOldNextBirthday(a){
+const howOldNextBirthday = (a) => {
   age = a + 1;
   return age;
 }
@@ -88,12 +88,12 @@ Imagine we've been asked to write some code that takes an array of words and ret
 One way to write this would involve creating an empty array `excitedWords`, and then mutate (change) it:
 
 ```js
-var wordList = ['chocolate', 'crisps', 'icecream'];
+const wordList = ['chocolate', 'crisps', 'icecream'];
 
-var excitedWords=[];
+const excitedWords = [];
 
-for (var i=0; i<wordList.length; i++){
-  var word = wordList[i].toUpperCase() + '!!!'
+for (let i=0; i<wordList.length; i++){
+  const word = wordList[i].toUpperCase() + '!!!';
   excitedWords.push(word);
 };
 ```
@@ -103,14 +103,14 @@ However, this code is not divided into functions, and relies on global variables
 To make this code testable, we can wrap it into a function `excite()` that takes an array as an argument and returns the information we want. This means we can run tests with any array, and that we can create our `excitedWords` array in the form we want without ever having to mutate it.
 
 ```js
-function excite(words) {
-  return words.map(function(word) {
-    return word.toUpperCase()+'!!!';
+const excite = (words) => {
+  return words.map((word) => {
+    return word.toUpperCase() + '!!!';
   });
 }
 
-var wordList = ['chocolate', 'crisps', 'icecream'];
-var excitedWords = excite(wordList);
+const wordList = ['chocolate', 'crisps', 'icecream'];
+const excitedWords = excite(wordList);
 ```
 
 ### Example 2 - but what if I need side effects?
@@ -122,10 +122,10 @@ In this example, we have a function that toggles the opacity of an image (when t
 In the first version below, the function takes no arguments, alters the DOM after checking the global variable `changeTransition`, then changes the global variable `changeTransition`.
 
 ```js
-var changeTransition = true;
+let changeTransition = true;
 
-function visionChange() {
-  var visionimage = document.getElementById("visionimage");
+const visionChange = () => {
+  const visionimage = document.getElementById("visionimage");
 
   if (changeTransition === true) {
     visionimage.style.opacity = 0;
@@ -148,7 +148,7 @@ Next we rewrite the function as two separate functions, both of which will retur
 Can you see what each functions return? How might you test the functions?
 
 ```js
-function visionChange(changeTransition) {
+const visionChange = (changeTransition) => {
   if (changeTransition) {
     return false;
   } else {
@@ -156,9 +156,9 @@ function visionChange(changeTransition) {
   }
 }
 
-function updateDom(changeTransition) {
-  return function() {
-    var visionimage = document.getElementById("visionimage");
+const updateDom = (changeTransition) => {
+  return () => {
+    const visionimage = document.getElementById("visionimage");
 
     if (changeTransition) {
       visionimage.style.opacity = 0;
@@ -168,7 +168,7 @@ function updateDom(changeTransition) {
   };
 }
 
-var impureUpdateDom = updateDom(visionChange(changeTransition));
+const impureUpdateDom = updateDom(visionChange(changeTransition));
 
 // When we're ready...
 impureUpdateDom();
@@ -181,11 +181,11 @@ impureUpdateDom();
 Here's what our tests might look like:
 
 ```js
-test("visionChange correctly switches boolean", function() {
+test("visionChange correctly switches boolean", () => {
   expect(visionChange(true)).toBeFalsy();
 });
 
-test("updateDom returns correct type", function() {
+test("updateDom returns correct type", () => {
   expect(typeof updateDom(true)).toBe('function');
 });
 ```
